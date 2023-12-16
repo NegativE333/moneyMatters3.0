@@ -17,7 +17,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       };
     }
   
-    const { title, amount } = data;
+    const { title, amount, users } = data;
   
     let expense;
   
@@ -107,6 +107,51 @@ const handler = async (data: InputType): Promise<ReturnType> => {
           addedBy: user?.firstName + " " + user?.lastName,
         },
       });
+
+      const exp = expense;
+
+      let createExpUser;
+      try{
+        const transaction = users.map((user) => 
+          db.expenseUser.create({
+            data:{
+              expenseId: exp.id,
+              userId: user.id,
+              amount: user.amount
+            }
+          })
+        );
+
+        createExpUser = await db.$transaction(transaction);
+        // let individualBalId;
+        // let finalBalance;
+
+      //     const balanceTransaction = users.map((user) => {
+      //       if(user.id !== userId){
+      //         individualBalId = db.balance.findFirst({
+      //           where:{
+      //             userId: user.id,
+      //             orgId
+      //           }
+      //         });
+      //         finalBalance = parseInt(individualBalId.balance) - parseInt(user.amount);
+      //         if(individualBalId){
+      //           db.balance.update({
+      //             where:{
+      //               id: individualBalId.id
+      //             },
+      //             data:{
+      //               balance: finalBalance.toString()
+      //             }
+      //           })
+      //         }
+      //       }
+      // })
+      }
+      catch(error){
+        console.log(error);
+      }
+
     } catch (error) {
       return {
         error: `Error : ${error}  orgId: ${orgId}`,

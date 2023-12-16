@@ -1,4 +1,4 @@
-import { BadgeIndianRupee, Car, Cigarette, Coffee, Fuel, Home, IceCream2, IndianRupee, Pill, Utensils } from "lucide-react"
+import { BadgeIndianRupee, Car, Cigarette, Coffee, Fuel, Home, IceCream2, IndianRupee, PartyPopper, Pill, Utensils } from "lucide-react"
 
 export const generateIcon = (expenseType : string) => {
     switch(expenseType){
@@ -49,11 +49,13 @@ export const generateIcon = (expenseType : string) => {
         case "car":
             return <Car className="h-10 w-10"/>;
         case "auto":
-            return <Car className="h-10 w-10"/>
+            return <Car className="h-10 w-10"/>;
         case "medicine":
             return <Pill className="h-10 w-10"/>;
         case "rent":
-            return <Home className="h-10 w-10"/>
+            return <Home className="h-10 w-10"/>;
+        case "welcomeexpenseunique":
+            return <PartyPopper className="h-10 w-10"/>;
         default:
             return <BadgeIndianRupee className="h-10 w-10"/>;
         

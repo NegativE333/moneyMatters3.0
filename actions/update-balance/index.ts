@@ -1,6 +1,6 @@
 "use server";
 
-import { auth, currentUser } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs";
 import { InputType, ReturnType } from "./types";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
@@ -35,8 +35,6 @@ const handler = async (data : InputType) : Promise<ReturnType> => {
             balanceAmount = await db.balance.update({
                 where:{
                     id: balId?.id,
-                    // userId : userId,
-                    // orgId
                 },
                 data: {
                     balance : finalBalance.toString()
@@ -52,21 +50,6 @@ const handler = async (data : InputType) : Promise<ReturnType> => {
                 }
             });
         }
-
-        // const ifExists = await db.balance.findUnique({
-        //     where:{
-        //         id: balId?.id,
-        //         // userId: userId,
-        //         // orgId
-        //     }
-        // });
-
-        // if(ifExists){
-            
-        // }
-        // else{
-            
-        // }
     }
     catch(error){
         console.log("Failed..........");

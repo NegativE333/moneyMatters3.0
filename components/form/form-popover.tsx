@@ -19,6 +19,8 @@ import { auth, useOrganization, useOrganizationList } from "@clerk/nextjs";
 import { useQuery } from '@tanstack/react-query';
 import { Group } from "@prisma/client";
 import { fetcher } from "@/lib/fetcher";
+import { updateAllBalances } from "@/actions/update-all-balances";
+import Image from "next/image";
 
 interface FormPopoverProps{
     children: React.ReactNode;
@@ -44,8 +46,7 @@ export const FormPopover = ({
 } : FormPopoverProps) => {
     const closeRef = useRef<ElementRef<"button">>(null);
 
-    const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
-    const [userExpenses, setUserExpenses] = useState<Record<string, string>>({});
+    const [userExpenses, setUserExpenses] = useState<{ id: string; amount: string }[]>([]);
 
     const { execute, fieldErrors } = useAction(createExpense, {
         onSuccess: (data) => {
@@ -77,24 +78,48 @@ export const FormPopover = ({
         fetchData();
       }, []);
 
-      const handleUserExpenseChange = (userId : string, amount : string) => {
-        setUserExpenses((prevUserExpense) => ({
-            ...prevUserExpense,
-            [userId] : amount,
-        }));
+      const handleUserExpenseChange = (userId: string, amount: string) => {
+        setUserExpenses((prevUserExpenses) => {
+          // Check if the user already has an entry in the array
+          const userIndex = prevUserExpenses.findIndex((user) => user.id === userId);
+      
+          if (userIndex !== -1) {
+            // If the user exists, update the amount
+            return [
+              ...prevUserExpenses.slice(0, userIndex),
+              { id: userId, amount },
+              ...prevUserExpenses.slice(userIndex + 1),
+            ];
+          } else {
+            // If the user doesn't exist, add a new entry
+            return [...prevUserExpenses, { id: userId, amount }];
+          }
+        });
       };
 
-      console.log(userExpenses);
-
-    
     const {execute : executeUpdateBalance, fieldErrors : updateBalanceFieldError } = useAction(updateBalance);
+
+    const {execute : executeUpdateAllBalances} = useAction(updateAllBalances);
 
     const onSubmit = (formData : FormData) => {
         const title = formData.get("title") as string;
         const amount = formData.get("amount") as string;
-        execute({ title, amount });
-        executeUpdateBalance({ amount });
+        execute({ title, amount, users: userExpenses });
+        executeUpdateAllBalances({ users : userExpenses});
+        // executeUpdateBalance({ amount });
     }
+
+    const handleEqualDistribution = () => {
+      const formData = new FormData(document.querySelector('form') as HTMLFormElement);
+      const amount = formData.get("amount") as string;
+      const totalAmount = parseFloat(amount || "0");
+      const numMembers = groupMembers.length;
+  
+      if (totalAmount > 0 && numMembers > 0) {
+          const equalAmount = (totalAmount / numMembers).toFixed(2);
+          setUserExpenses(groupMembers.map(member => ({ id: member.userId, amount: equalAmount })));
+      }
+  };
 
     return(
         <Popover>
@@ -124,24 +149,49 @@ export const FormPopover = ({
                             errors={fieldErrors}
                         />
                         <FormInput 
-                            type="number"
+                            type="text"
                             label="Expense amount"
                             id="amount"
                             errors={fieldErrors}
                         />
                     </div>
+                    <div className="flex justify-center items-center">
+                      <p className="text-neutral-700 font-medium text-sm">
+                        Who borrowed, how much?
+                      </p>
+                        <Button 
+                          variant="ghost"
+                          className="ml-auto text-xs"
+                          onClick={(e) => {
+                            e.preventDefault(); // Prevent the default button click behavior
+                            handleEqualDistribution(); // Call your function without parameters
+                        }}
+                        >
+                          Equally
+                        </Button>
+                    </div>
                     {groupMembers.map((member) =>(
-                        <div key={member.id}>
-                            <label>
-              {member.userName} owes:
-              <input
-                type="number"
-                value={userExpenses[member.userId] || ""}
-                onChange={(e) =>
-                  handleUserExpenseChange(member.userId, e.target.value)
-                }
-              />
-            </label>
+                        <div key={member.id} className="flex">
+                            <label className="flex w-full gap-2">
+                              <Image 
+                                src={member.imageUrl}
+                                alt="Member Image"
+                                height={16}
+                                width={24}
+                                className="object-cover rounded-full"
+                              />
+                              <p>
+                                {member.userName}
+                              </p>
+                              <input
+                                type="text"
+                                value={(userExpenses.find(userExpense => userExpense.id === member.userId) || {}).amount || ""}
+                                onChange={(e) => handleUserExpenseChange(member.userId, e.target.value)
+                                } 
+                                placeholder="₹"
+                                className="border-b w-16 ml-auto text-center focus:border-none focus-visible:border-none"
+                              />
+                            </label>
                         </div>
                     ))}
                     <FormSubmit className="w-full">

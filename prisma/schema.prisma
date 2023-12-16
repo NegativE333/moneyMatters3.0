@@ -53,3 +53,10 @@ model User {
   @@index([groupId])
   @@index([balanceId])
 }
+
+model ExpenseUser {
+  id String @id @default(uuid())
+  expenseId String
+  userId String
+  amount String
+}

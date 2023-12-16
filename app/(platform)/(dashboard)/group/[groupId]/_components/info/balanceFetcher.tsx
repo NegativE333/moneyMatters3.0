@@ -18,7 +18,7 @@ export const BalanceFetcher = async () => {
 
     let Icon;
 
-    if(balance === null){
+    if(balance === null || parseFloat(balance.balance) === 0){
         Icon = <Wallet className="h-[18px] w-[18px] mr-1 text-black"/>
     }
     else if(parseInt(balance.balance) > 0){
@@ -28,11 +28,13 @@ export const BalanceFetcher = async () => {
         Icon = <Wallet className="h-[18px] w-[18px] mr-1 text-rose-500"/>
     }
 
+    const formatedBalance = parseFloat(balance?.balance || "0").toFixed(2);
+
     return(
         <div className="flex items-center text-sm text-muted-foreground">
             { Icon }
             <div className="text-black font-semibold">
-                {balance?.balance} ₹
+                {formatedBalance} ₹
             </div>
         </div>
     )

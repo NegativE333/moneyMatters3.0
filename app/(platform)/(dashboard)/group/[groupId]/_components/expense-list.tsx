@@ -1,5 +1,3 @@
-import { FormPopover } from "@/components/form/form-popover"
-// import { Hint } from "@/components/hint"
 import { Skeleton } from "@/components/ui/skeleton"
 import { db } from "@/lib/db"
 import { auth } from "@clerk/nextjs"
@@ -7,12 +5,13 @@ import { Users } from "lucide-react"
 import { redirect } from "next/navigation"
 import { format } from 'date-fns';
 import { generateIcon } from "@/lib/generate-icon"
+import { Welcome } from "./welcome/welcom"
 
 export const ExpenseList = async () => {
 
-    const { orgId } = auth();
+    const { orgId, userId, orgSlug } = auth();
 
-    if(!orgId){
+    if(!orgId || !userId || !orgSlug){
         return redirect("/select-org");
     }
 
@@ -25,7 +24,27 @@ export const ExpenseList = async () => {
         }
     });
 
-    // console.log(expenses);
+    const groupID = await db.group.findFirst({
+        where:{
+            group: orgId
+        }
+    });
+
+    const newUser = await db.user.findFirst({
+        where:{
+            userId: userId,
+            groupId: groupID?.id
+        }
+    });
+
+    if(!newUser || !groupID){
+        return(
+            <Welcome 
+                groupName={orgSlug}
+                userId={userId}
+            />
+        )
+    }
 
     return(
         <div className="space-y-4">
@@ -42,21 +61,30 @@ export const ExpenseList = async () => {
                             {generateIcon(exp.title.toLowerCase())}
                         </div>
                         <div className="flex flex-col w-[75%]">
-                            <div className="flex m-1 ml-2 mr-2 h-[50%]">
-                                <h1 className="text-[17px] w-[70%] truncate">
-                                    {exp.title}
-                                </h1>
-                                <h1 className="text-">
-                                </h1>
-                                <h2 className="ml-auto">
-                                    {exp.amount} ₹
-                                </h2>
-
-                            </div>
+                            {exp.title === "welcomeExpenseUnique" 
+                            ? (
+                                <div className="flex m-1 ml-2 mr-2 h-[50%] text-[14px]">
+                                    {exp.addedBy} joined
+                                </div>
+                            ): (
+                                <div className="flex m-1 ml-2 mr-2 h-[50%]">
+                                    <h1 className="text-[17px] w-[70%] truncate">
+                                        {exp.title}
+                                    </h1>
+                                    <h2 className="ml-auto">
+                                        {exp.amount} ₹
+                                    </h2>
+                                </div>
+                            )}
                             <div className="flex text-[10px] ml-2">
-                                <p className="truncate mt-2 w-[70%]">
-                                    Added by {exp.addedBy}
-                                </p>
+                                {exp.title !== "welcomeExpenseUnique" 
+                                    && 
+                                    (
+                                    <p className="truncate mt-2 w-[70%]">
+                                        Added by {exp.addedBy}
+                                    </p>
+                                    )
+                                }
                                 <p className="ml-auto text-[11px]  p-1 border rounded-xl mr-2 mb-2 font-semibold">
                                     {format(new Date(exp.createdAt), "MMM d")}
                                 </p>
