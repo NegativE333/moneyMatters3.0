@@ -111,6 +111,28 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       const exp = expense;
 
       let createExpUser;
+
+      // const userNames = await Promise.all(
+      //   users.map(async (user) => {
+      //     const userName = await db.user.findUnique({
+      //       where:{
+      //         id: user.id
+      //       }
+      //     });
+      //     return userName?.userName;
+      //   })
+      // );
+
+      // for(const userName of userNames){
+      //   await db.expenseUser.create({
+      //     data:{
+      //       expenseId: exp.id,
+      //       userId: user.id,
+      //       amount: user.amount
+      //     }
+      //   })
+      // }
+
       try{
         const transaction = users.map((user) => 
           db.expenseUser.create({
@@ -123,30 +145,6 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         );
 
         createExpUser = await db.$transaction(transaction);
-        // let individualBalId;
-        // let finalBalance;
-
-      //     const balanceTransaction = users.map((user) => {
-      //       if(user.id !== userId){
-      //         individualBalId = db.balance.findFirst({
-      //           where:{
-      //             userId: user.id,
-      //             orgId
-      //           }
-      //         });
-      //         finalBalance = parseInt(individualBalId.balance) - parseInt(user.amount);
-      //         if(individualBalId){
-      //           db.balance.update({
-      //             where:{
-      //               id: individualBalId.id
-      //             },
-      //             data:{
-      //               balance: finalBalance.toString()
-      //             }
-      //           })
-      //         }
-      //       }
-      // })
       }
       catch(error){
         console.log(error);

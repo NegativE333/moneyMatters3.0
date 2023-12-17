@@ -2,7 +2,6 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
-
 export async function GET(req : Request) {
     try{
         const { userId, orgId } = auth();
@@ -38,8 +37,6 @@ export async function GET(req : Request) {
         });
         console.log("Groupid : ", groupID.id);
         console.log("User balance id : ", user.balanceId);
-        console.log("HI there");
-        // console.log(balance);
         return NextResponse.json(balance);
     }
     catch(error){

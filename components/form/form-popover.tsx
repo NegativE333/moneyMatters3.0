@@ -21,6 +21,7 @@ import { Group } from "@prisma/client";
 import { fetcher } from "@/lib/fetcher";
 import { updateAllBalances } from "@/actions/update-all-balances";
 import Image from "next/image";
+import { Separator } from "../ui/separator";
 
 interface FormPopoverProps{
     children: React.ReactNode;
@@ -132,7 +133,7 @@ export const FormPopover = ({
                 side={side}
                 sideOffset={sideOffset}
             >
-                <div className="text-sm font-medium text-center text-neutral-600 pb-4">
+                <div className="text-sm font-medium text-center text-neutral-600 pb-6">
                     Create Expense
                 </div>
                 <PopoverClose asChild ref={closeRef}>
@@ -140,6 +141,7 @@ export const FormPopover = ({
                         <XIcon className="h-4 w-4"/>
                     </Button>
                 </PopoverClose>
+                <Separator className="mb-2"/>
                 <form className="space-y-4" action={onSubmit}>
                     <div className="space-y-4">
                         <FormInput 
@@ -194,6 +196,7 @@ export const FormPopover = ({
                             </label>
                         </div>
                     ))}
+                    <Separator className="mb-2"/>
                     <FormSubmit className="w-full">
                         Create
                     </FormSubmit>

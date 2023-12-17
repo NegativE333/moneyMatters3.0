@@ -24,7 +24,6 @@ export const FormSubmit = ({
         <Button
             disabled={pending || disabled}
             type="submit"
-            variant={varient}
             className={cn(className)}
         >
             {children}

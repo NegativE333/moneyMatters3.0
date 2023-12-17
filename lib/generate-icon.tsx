@@ -1,63 +1,64 @@
-import { BadgeIndianRupee, Car, Cigarette, Coffee, Fuel, Home, IceCream2, IndianRupee, PartyPopper, Pill, Utensils } from "lucide-react"
+import { BadgeIndianRupee, Car, Cigarette, Coffee, Fuel, Home, IceCream2, PartyPopper, Pill, Utensils } from "lucide-react"
+import { cn } from "./utils";
 
-export const generateIcon = (expenseType : string) => {
+export const generateIcon = (expenseType : string, className: string) => {
     switch(expenseType){
         case "chai":
-            return <Coffee className="h-10 w-10"/>;
+            return <Coffee className={cn(className)}/>;
         case "tea":
-            return <Coffee className="h-10 w-10"/>;
+            return <Coffee className={cn(className)}/>;
         case "coffee":
-            return <Coffee className="h-10 w-10"/>;
+            return <Coffee className={cn(className)}/>;
         case "fuel":
-            return <Fuel className="h-10 w-10"/>;
+            return <Fuel className={cn(className)}/>;
         case "petrol":
-            return <Fuel className="h-10 w-10"/>;
+            return <Fuel className={cn(className)}/>;
         case "food":
-            return <Utensils className="h-10 w-10"/>;
+            return <Utensils className={cn(className)}/>;
         case "j1":
-            return <Utensils className="h-10 w-10"/>;
+            return <Utensils className={cn(className)}/>;
         case "biryani":
-            return <Utensils className="h-10 w-10"/>;
+            return <Utensils className={cn(className)}/>;
         case "nasta":
-            return <Utensils className="h-10 w-10"/>;
+            return <Utensils className={cn(className)}/>;
         case "pulao":
-            return <Utensils className="h-10 w-10"/>;
+            return <Utensils className={cn(className)}/>;
         case "pohe":
-            return <Utensils className="h-10 w-10"/>;
+            return <Utensils className={cn(className)}/>;
         case "vadapav":
-            return <Utensils className="h-10 w-10"/>;
+            return <Utensils className={cn(className)}/>;
         case "maggie":
-            return <Utensils className="h-10 w-10"/>;
+            return <Utensils className={cn(className)}/>;
         case "dine":
-            return <Utensils className="h-10 w-10"/>;
+            return <Utensils className={cn(className)}/>;
         case "dinner":
-            return <Utensils className="h-10 w-10"/>;
+            return <Utensils className={cn(className)}/>;
         case "lunch":
-            return <Utensils className="h-10 w-10"/>;
+            return <Utensils className={cn(className)}/>;
         case "breakfast":
-            return <Utensils className="h-10 w-10"/>;
+            return <Utensils className={cn(className)}/>;
         case "ice-cream":
-            return <IceCream2 className="h-10 w-10"/>;
+            return <IceCream2 className={cn(className)}/>;
         case "ice":
-            return <IceCream2 className="h-10 w-10"/>;
+            return <IceCream2 className={cn(className)}/>;
         case "cream":
-            return <IceCream2 className="h-10 w-10"/>;
+            return <IceCream2 className={cn(className)}/>;
         case "icecream":
-            return <IceCream2 className="h-10 w-10"/>;
+            return <IceCream2 className={cn(className)}/>;
         case "cigarette":
-            return <Cigarette className="h-10 w-10"/>;
+            return <Cigarette className={cn(className)}/>;
         case "car":
-            return <Car className="h-10 w-10"/>;
+            return <Car className={cn(className)}/>;
         case "auto":
-            return <Car className="h-10 w-10"/>;
+            return <Car className={cn(className)}/>;
         case "medicine":
-            return <Pill className="h-10 w-10"/>;
+            return <Pill className={cn(className)}/>;
         case "rent":
-            return <Home className="h-10 w-10"/>;
+            return <Home className={cn(className)}/>;
         case "welcomeexpenseunique":
-            return <PartyPopper className="h-10 w-10"/>;
+            return <PartyPopper className={cn(className)}/>;
         default:
-            return <BadgeIndianRupee className="h-10 w-10"/>;
+            return <BadgeIndianRupee className={cn(className)}/>;
         
     }
 }

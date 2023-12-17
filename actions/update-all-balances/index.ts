@@ -60,6 +60,7 @@ const handler = async (data : InputType) : Promise<ReturnType> => {
         );
 
         let lentedAmount = 0;
+        
         for(const balanceId of balanceIds){
             if(balanceId && balanceId !== creatorUser.balanceId){
                 const individualBalance = await db.balance.findFirst({
