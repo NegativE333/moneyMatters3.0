@@ -103,6 +103,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         data: {
           title,
           amount,
+          userId,
           orgId,
           addedBy: user?.firstName + " " + user?.lastName,
         },
@@ -111,27 +112,6 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       const exp = expense;
 
       let createExpUser;
-
-      // const userNames = await Promise.all(
-      //   users.map(async (user) => {
-      //     const userName = await db.user.findUnique({
-      //       where:{
-      //         id: user.id
-      //       }
-      //     });
-      //     return userName?.userName;
-      //   })
-      // );
-
-      // for(const userName of userNames){
-      //   await db.expenseUser.create({
-      //     data:{
-      //       expenseId: exp.id,
-      //       userId: user.id,
-      //       amount: user.amount
-      //     }
-      //   })
-      // }
 
       try{
         const transaction = users.map((user) => 

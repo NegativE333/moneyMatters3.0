@@ -1,11 +1,13 @@
 "use client";
 
 import { FormInput } from "@/components/form/form-input";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { generateIcon } from "@/lib/generate-icon";
 import { Expense } from "@prisma/client";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { Trash } from "lucide-react";
 import { ElementRef, useRef, useState } from "react";
 
 interface HeaderProps{
@@ -29,15 +31,15 @@ export const Header = ({
 
     return(
         <div className="flex flex-col">            
-            <div className="flex items-start gap-x-3 mb-2 w-full">
+            <div className="flex items-start gap-x-3 mb-2 w-[95%]">
                 {generateIcon(data.title.toLowerCase(), "h-5 w-5 mt-1 text-neutral-700")}
-                    <p className="w-[90%] font-semibold text-xl text-neutral-700 truncate">
+                    <p className="w-[60%] font-semibold text-xl text-neutral-700 truncate">
                         {title}
                     </p>
             </div>
             <div>
                 <p className="text-xs text-muted-foreground">
-                    Added by <b>{data?.addedBy}</b> on <b>{format(new Date(data?.createdAt), "MMM d, yyyy")}</b>
+                    Added by <b>{data?.addedBy}</b> on <b>{format(new Date(data?.createdAt), "MMM d, yyyy")}</b> at {format(new Date(data?.createdAt), "hh:mm a")}
                 </p>
             </div>
         </div>

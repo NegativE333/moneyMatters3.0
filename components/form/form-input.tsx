@@ -18,6 +18,7 @@ interface FormInputProps{
     className?: string; 
     defaultValue?: string;
     onBlur?: () => void;
+    onChange?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
@@ -30,7 +31,8 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
     errors,
     className,
     defaultValue = "",
-    onBlur
+    onBlur,
+    onChange
 }, ref) => {
     const { pending } = useFormStatus();
 
@@ -47,6 +49,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
                 ) : null}
                 <Input 
                     onBlur={onBlur}
+                    onChange={onChange}
                     defaultValue={defaultValue}
                     ref={ref}
                     required={required}
@@ -55,7 +58,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
                     placeholder={placeholder}
                     type={type}
                     disabled={pending || disabled}
-                    className={cn("text-sm px-2 py-1 h-7", className)}
+                    className={cn("text-sm px-2 py-1 h-7 border-black/30", className)}
                     aria-describedby={`${id}-error`}
                     autoFocus={false}
                 />

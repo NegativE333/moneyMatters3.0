@@ -22,11 +22,17 @@ export const ExpenseCard = ({
 
     const cardModal = useCardModal();
 
+    const handleClick = () => {
+      if(title !== "welcomeExpenseUnique"){
+        cardModal.onOpen(id);
+      }
+    }
+
   return(
       <div
         role="button"
-        onClick={() => cardModal.onOpen(id)}
-        className="border border-neutral-700/90 rounded-md w-full sm:w-[264px] h-16 flex"
+        onClick={handleClick}
+        className="border border-neutral-700/90 rounded-md w-full sm:w-[240px] h-16 flex"
       >
           <div className="bg-neutral-700 h-full w-[25%] flex justify-center items-center rounded-s-md text-white">
             {generateIcon(title.toLowerCase(), "h-10 w-10")}
@@ -44,7 +50,7 @@ export const ExpenseCard = ({
             )}
             <div className="flex text-[10px] ml-2">
               {title !== "welcomeExpenseUnique" && (
-                <p className="truncate mt-2 w-[70%]">
+                <p className="truncate mt-2 w-[60%]">
                   Added by {addedBy}
                 </p>
               )}

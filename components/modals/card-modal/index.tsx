@@ -8,12 +8,37 @@ import { Expense, ExpenseUser, User } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import { UserDetails } from "./_components/user-details";
 import { Header } from "./_components/header";
+import { Button } from "@/components/ui/button";
+import { Trash } from "lucide-react";
+import { useAction } from "@/hooks/use-action";
+import { deleteExpense } from "@/actions/delete-expense";
+import { toast } from "sonner";
+import { updateAllBalancesAfterDelete } from "@/actions/update-all-balances-after-delete";
 
 export const CardModal = () => {
 
     const id = useCardModal((state) => state.id);
     const isOpen = useCardModal((state) => state.isOpen);
     const onClose = useCardModal((state) => state.onClose);
+
+    const {execute : executeDelete} = useAction(deleteExpense, {
+        onSuccess: (data) => {
+            toast.success("Expense deleted!");
+
+            const formattedUsers = expenseMembersData?.map((expUser) => ({
+                id: expUser.userId,
+                amount: expUser.amount,
+              })) || [];
+
+            executeUpdateBalanceAfterDelete({ users: formattedUsers});
+            onClose();
+        },
+        onError: (error) => {
+            toast.error(error);
+        }
+    });
+
+    const {execute : executeUpdateBalanceAfterDelete} = useAction(updateAllBalancesAfterDelete);
 
     const { data : expenseData } = useQuery<Expense>({
         queryKey: ["expense", id],
@@ -23,7 +48,7 @@ export const CardModal = () => {
     const { data : expenseMembersData } = useQuery<ExpenseUser[]>({
         queryKey: ["expensemembers", id],
         queryFn: () => fetcher(`/api/expensemembers/${id}`)
-    });
+    }); 
 
     const { data: usersData } = useQuery<User[]>({
         queryKey: ["users", expenseMembersData?.map((member) => member.userId)],
@@ -47,8 +72,12 @@ export const CardModal = () => {
 
     if(!expenseData || !usersData || !userMapping){
         return(
-            <Header.Skeleton />
+            null
         )
+    }
+
+    const handleDelete = (id: string) => {
+        executeDelete({ id });
     }
       
     return(
@@ -80,6 +109,21 @@ export const CardModal = () => {
                         amount={expUser?.amount}
                     />
                 ))}
+                <Separator />
+                <div className="flex items-center justify-between">
+                    <div className="font-medium">
+                        Total : {expenseData.amount} ₹
+                    </div>
+                    <Button 
+                        onClick={() => handleDelete(expenseData.id)}
+                        variant="destructive"
+                        className="h-8 w-8 p-1"
+                    >
+                        <Trash 
+                            className="h-10 w-10"
+                        />
+                    </Button>
+                </div>
             </DialogContent>
         </Dialog>
     );
