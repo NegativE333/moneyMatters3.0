@@ -2,6 +2,7 @@ import { InfoImage } from "./info-image";
 import { InfoTitle } from "./info-title";
 import { BalanceFetcher } from "./balanceFetcher";
 import { InfoAddExpense } from "./info-add-expense";
+import { Option } from "./option";
 
 export const Info = () => {
   return (
@@ -11,7 +12,8 @@ export const Info = () => {
         <InfoTitle />
         <BalanceFetcher />
       </div>
-      <InfoAddExpense />
+      <Option />
+      {/* <InfoAddExpense /> */}
     </div>
   );
 };

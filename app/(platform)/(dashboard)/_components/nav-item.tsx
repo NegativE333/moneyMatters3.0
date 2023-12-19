@@ -4,7 +4,7 @@ import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
-import { Activity, BellRing, BookOpenText, CreditCard, Layout, ScrollText, Settings } from "lucide-react";
+import { Activity, BellRing, BookOpenText, CreditCard, GanttChart, Layout, ScrollText, Settings, Wallet } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -39,13 +39,18 @@ export const NavItem = ({
             href: `/group/${organization.id}`
         },
         {
+            label: "Balances",
+            icon: <Wallet className="h-4 w-4 mr-2" />,
+            href: `/group/${organization.id}/balances`
+        },
+        {
             label: "Reminders",
             icon: <BellRing className="h-4 w-4 mr-2" />,
             href: `/group/${organization.id}/reminders`
         },
         {
-            label: "Activity",
-            icon: <Activity className="h-4 w-4 mr-2" />,
+            label: "Recent Actions",
+            icon: <GanttChart className="h-4 w-4 mr-2" />,
             href: `/group/${organization.id}/activity`
         },
         {

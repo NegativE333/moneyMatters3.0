@@ -61,3 +61,39 @@ model ExpenseUser {
   userId String
   amount String
 }
+
+enum ACTION{
+  CREATE
+  DELETE
+}
+
+enum ENTITY_TYPE{
+  CARD
+}
+
+model AuditLog{
+  id String @id @default(uuid())
+  orgId String
+  action ACTION
+  entityId String
+  entityType ENTITY_TYPE
+  entityTitle String
+  userId String
+  userImg String @db.Text
+  userName String @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Reminder{
+  id String @id @default(uuid())
+  orgId String
+  userId String
+  userName String
+  title String
+  desc String @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

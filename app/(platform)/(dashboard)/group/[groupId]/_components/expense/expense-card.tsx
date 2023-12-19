@@ -2,6 +2,7 @@
 
 import { useCardModal } from "@/hooks/use-modal";
 import { generateIcon } from "@/lib/generate-icon";
+import { currentUser } from "@clerk/nextjs";
 import { format } from "date-fns";
 
 interface ExpenseCardProps{

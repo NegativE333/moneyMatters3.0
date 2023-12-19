@@ -38,7 +38,7 @@ export const Header = ({
                     </p>
             </div>
             <div>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-center sm:text-start text-xs text-muted-foreground">
                     Added by <b>{data?.addedBy}</b> on <b>{format(new Date(data?.createdAt), "MMM d, yyyy")}</b> at {format(new Date(data?.createdAt), "hh:mm a")}
                 </p>
             </div>

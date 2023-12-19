@@ -1,3 +1,4 @@
+
 import { Skeleton } from "@/components/ui/skeleton";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
@@ -44,13 +45,13 @@ export const ExpenseList = async () => {
     return <Welcome groupName={orgSlug} userId={userId} />;
   }
 
-  return (
+  return ( 
     <div className="space-y-4">
       <div className="flex items-center font-semibold text-lg text-neutral-700">
         <Users className="h-6 w-6 mr-2" />
         Group Expenses
       </div>
-      <ScrollArea className="h-[480px] sm:h-[430px] w-full rounded-md border p-4">
+      <ScrollArea className="h-[480px] sm:h-[430px] w-full rounded-md">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 w-full">
           {expenses.map((exp) => (
             <ExpenseCard 
@@ -71,15 +72,15 @@ export const ExpenseList = async () => {
 
 ExpenseList.Skeleton = function ExpenseListSkeleton() {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-      <Skeleton className="aspect-video h-full w-full p-2" />
-      <Skeleton className="aspect-video h-full w-full p-2" />
-      <Skeleton className="aspect-video h-full w-full p-2" />
-      <Skeleton className="aspect-video h-full w-full p-2" />
-      <Skeleton className="aspect-video h-full w-full p-2" />
-      <Skeleton className="aspect-video h-full w-full p-2" />
-      <Skeleton className="aspect-video h-full w-full p-2" />
-      <Skeleton className="aspect-video h-full w-full p-2" />
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 w-full">
+      <Skeleton className="aspect-video h-16 w-full sm:w-[240px] p-2" />
+      <Skeleton className="aspect-video h-16 w-full sm:w-[240px] p-2" />
+      <Skeleton className="aspect-video h-16 w-full sm:w-[240px] p-2" />
+      <Skeleton className="aspect-video h-16 w-full sm:w-[240px] p-2" />
+      <Skeleton className="aspect-video h-16 w-full sm:w-[240px] p-2" />
+      <Skeleton className="aspect-video h-16 w-full sm:w-[240px] p-2" />
+      <Skeleton className="aspect-video h-16 w-full sm:w-[240px] p-2" />
+      <Skeleton className="aspect-video h-16 w-full sm:w-[240px] p-2" />
     </div>
   );
 };

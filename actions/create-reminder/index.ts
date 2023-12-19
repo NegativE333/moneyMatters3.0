@@ -5,7 +5,7 @@ import { InputType, ReturnType } from "./types";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { createSafeAction } from "@/lib/create-safe-action";
-import { DeleteExpense } from "./schema";
+import { CreateReminder } from "./schema";
 import { createAuditLogs } from "@/lib/create-audit-logs";
 import { ACTION, ENTITY_TYPE } from "@prisma/client";
 
@@ -19,34 +19,26 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       };
     }
   
-    const { id } = data;
+    const { title, desc } = data;
   
-    let expense;
-
-    const findExpenseToDelete  = await db.expense.findUnique({
-      where:{
-        id: id
-      }
-    });
-
-    if(findExpenseToDelete?.userId !== userId){
-      return{
-        error: "You can not delete this expense."
-      }
-    }
+    let reminder;
   
     try {
-        expense = await db.expense.delete({
-          where:{
-            id: id
-          }
+        reminder = await db.reminder.create({
+            data:{
+                userId: userId,
+                userName: user.firstName + " " + user.lastName,
+                orgId: orgId,
+                title: title,
+                desc: desc
+            }
         });
 
         await createAuditLogs({
-          entityId: expense.id,
-          entityTitle: expense.title,
+          entityId: reminder.id,
+          entityTitle: reminder.title,
           entityType: ENTITY_TYPE.CARD,
-          action: ACTION.DELETE
+          action: ACTION.CREATE
         });
         
     } catch (error) {
@@ -55,9 +47,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       };
     }
   
-    revalidatePath(`/group/${expense}`);
-    return { data: expense };
+    revalidatePath(`/group/${reminder}`);
+    return { data: reminder };
   };
   
-  export const deleteExpense = createSafeAction(DeleteExpense, handler);
+  export const createReminder = createSafeAction(CreateReminder, handler);
   
