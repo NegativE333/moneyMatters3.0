@@ -5,7 +5,7 @@ import { InputType, ReturnType } from "./types";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { createSafeAction } from "@/lib/create-safe-action";
-import { CreateReminder } from "./schema";
+import { DeleteReminder } from "./schema";
 import { createAuditLogs } from "@/lib/create-audit-logs";
 import { ACTION, ENTITY_TYPE } from "@prisma/client";
 
@@ -19,27 +19,22 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       };
     }
   
-    const { title, desc } = data;
+    const { id } = data;
   
     let reminder;
   
     try {
-        reminder = await db.reminder.create({
-            data:{
-                userId: userId,
-                userName: user.firstName + " " + user.lastName,
-                orgId: orgId,
-                imageUrl: user.imageUrl,
-                title: title,
-                desc: desc
-            }
+        reminder = await db.reminder.delete({
+          where:{
+            id: id
+          }
         });
 
         await createAuditLogs({
           entityId: reminder.id,
           entityTitle: reminder.title,
-          entityType: ENTITY_TYPE.REMINDER,
-          action: ACTION.CREATE
+          entityType: ENTITY_TYPE.EXPENSE,
+          action: ACTION.DELETE
         });
         
     } catch (error) {
@@ -52,5 +47,5 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     return { data: reminder };
   };
   
-  export const createReminder = createSafeAction(CreateReminder, handler);
+  export const deleteReminder = createSafeAction(DeleteReminder, handler);
   

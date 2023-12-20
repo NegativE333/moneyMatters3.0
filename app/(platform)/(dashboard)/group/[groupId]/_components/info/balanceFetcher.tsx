@@ -1,6 +1,7 @@
+import { Separator } from "@/components/ui/separator";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs"
-import { Wallet } from "lucide-react";
+import { Users, Wallet } from "lucide-react";
 
 export const BalanceFetcher = async () => {
     const { userId, orgId } = auth();
@@ -13,6 +14,18 @@ export const BalanceFetcher = async () => {
         where:{
             userId,
             orgId
+        }
+    });
+
+    const group = await db.group.findFirst({
+        where:{
+            group: orgId
+        }
+    })
+
+    const userCount = await db.user.count({
+        where:{
+            groupId: group?.id
         }
     });
 
@@ -36,6 +49,11 @@ export const BalanceFetcher = async () => {
             <div className="text-black font-semibold">
                 {formatedBalance} ₹
             </div>
+            <Separator orientation="vertical" className="mx-3 h-4 bg-black"/>
+            <Users className="h-4 text-black/90"/>
+            <span className="font-medium text-black/90">
+                {userCount}
+            </span>
         </div>
     )
 }

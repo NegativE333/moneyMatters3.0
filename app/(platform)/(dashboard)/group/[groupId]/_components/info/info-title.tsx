@@ -3,8 +3,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { useOrganization } from "@clerk/nextjs";
 
-
-
 export const InfoTitle = () => {
 
     const { organization, isLoaded } = useOrganization();

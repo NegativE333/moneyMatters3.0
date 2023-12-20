@@ -68,7 +68,8 @@ enum ACTION{
 }
 
 enum ENTITY_TYPE{
-  CARD
+  EXPENSE
+  REMINDER
 }
 
 model AuditLog{
@@ -91,6 +92,7 @@ model Reminder{
   orgId String
   userId String
   userName String
+  imageUrl String @db.Text
   title String
   desc String @db.Text
 
