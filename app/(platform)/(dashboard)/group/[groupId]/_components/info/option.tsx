@@ -35,6 +35,9 @@ export const Option = () => {
     else if(lastPart === "reminders"){
         return <InfoAddReminder />
     }
+    else if(lastPart === "charts"){
+        return null;
+    }
 
     return(
         <div>

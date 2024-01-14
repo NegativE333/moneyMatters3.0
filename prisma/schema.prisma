@@ -60,6 +60,8 @@ model ExpenseUser {
   expenseId String
   userId String
   amount String
+
+  createdAt DateTime @default(now())
 }
 
 enum ACTION{

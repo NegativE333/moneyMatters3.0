@@ -36,7 +36,7 @@ export const InfoGroupBalance = () => {
                 <p className="hidden sm:block text-md">
                         Total group expense : <span className="font-medium">{parseInt(expenseData?.totalAmount).toLocaleString("en-IN")} ₹ </span>
                 </p>
-                <div className="sm:hidden w-[120px] h-[20px] flex flex-col justify-center items-center gap-1">
+                <div className="sm:hidden w-auto h-[20px] flex flex-col justify-center items-center gap-1">
                     <p className="text-sm">
                         Group total
                     </p>

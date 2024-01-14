@@ -6,7 +6,7 @@ import { Option } from "./option";
 
 export const Info = () => {
   return (
-    <div className="flex items-center gap-x-4 w-full">
+    <div className="flex items-center gap-x-2 sm:gap-x-4 w-full">
       <InfoImage />
       <div className="space-y-1">
         <InfoTitle />

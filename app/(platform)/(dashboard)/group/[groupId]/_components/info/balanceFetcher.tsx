@@ -44,13 +44,13 @@ export const BalanceFetcher = async () => {
     const formatedBalance = parseFloat(balance?.balance || "0").toFixed(2);
 
     return(
-        <div className="flex items-center text-sm text-muted-foreground">
+        <div className="flex flex-wrap items-center text-[12px] sm:text-sm text-muted-foreground">
             { Icon }
-            <div className="text-black font-semibold">
+            <div className="text-black font-semibold w-auto">
                 {formatedBalance} ₹
             </div>
             <Separator orientation="vertical" className="mx-3 h-4 bg-black"/>
-            <Users className="h-4 text-black/90"/>
+            <Users className="h-3 w-3 mr-1 text-black/90"/>
             <span className="font-medium text-black/90">
                 {userCount}
             </span>
