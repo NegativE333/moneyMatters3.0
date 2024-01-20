@@ -1,11 +1,10 @@
 import { auth } from "@clerk/nextjs";
-import { PrismaClient } from "@prisma/client";
 import { subDays, startOfDay, format } from "date-fns";
 import { Info } from "../_components/info/info";
 import { Separator } from "@/components/ui/separator";
 import { LineChart } from "./_components/line-chart";
 import { db } from "@/lib/db";
-import { BarChart } from "../balances/_components/bar-chart";
+import { BarChart } from "./_components/bar-chart";
 
 interface DailyExpense {
   day: string;

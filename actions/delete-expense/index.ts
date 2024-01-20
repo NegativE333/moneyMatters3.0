@@ -21,7 +21,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   
     const { id } = data;
   
-    let expense;
+    let expense, expUser;
 
     const findExpenseToDelete  = await db.expense.findUnique({
       where:{
@@ -41,6 +41,12 @@ const handler = async (data: InputType): Promise<ReturnType> => {
             id: id
           }
         });
+
+        expUser = await db.expenseUser.deleteMany({
+          where:{
+            expenseId: id
+          }
+        })
 
         await createAuditLogs({
           entityId: expense.id,

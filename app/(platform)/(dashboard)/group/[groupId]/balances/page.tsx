@@ -3,29 +3,36 @@ import { Info } from "../_components/info/info";
 import { BalanceList } from "./_components/balance-list";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
-import { BarChart } from "./_components/bar-chart";
+import { startOfMonth, endOfMonth } from "date-fns";
+import { PercentDiamond } from "lucide-react";
 
 const BalancesPage = async () => {
-  const { orgId } = auth();
+  const { orgId, userId } = auth();
 
-  if (!orgId) {
+  const startDate = startOfMonth(new Date());
+  const endDate = endOfMonth(new Date());
+
+  if (!orgId || !userId) {
     return null;
   }
 
-  const balances = await db.balance.findMany({
+  const monthTotalExpense = await db.expenseUser.findMany({
     where: {
-      orgId,
-    },
-    include: {
-      users: {
-        select: {
-          userId: true,
-          userName: true,
-          imageUrl: true,
-        },
+      userId: userId,
+      createdAt: {
+        gte: startDate,
+        lte: endDate,
       },
     },
+    select: {
+      amount: true,
+    },
   });
+
+  const thisMonthTotalExpense = monthTotalExpense.reduce(
+    (sum, exp) => sum + parseFloat(exp.amount),
+    0
+  );
 
   return (
     <div className="w-full">
@@ -37,12 +44,13 @@ const BalancesPage = async () => {
           <BalanceList />
         </div>
         <div className="flex-1">
-          <BarChart
-            balanceAmount={balances.map((bal) => bal.balance)}
-            balanceName={balances.map((bal) =>
-              bal.users.map((user) => user.userName)
-            )}
-          />
+          <div className="flex gap-2 px-2 md:px-4 text-md sm:text-lg">
+            <div className="flex items-center font-semibold text-neutral-700">
+              <PercentDiamond className="h-6 w-6 mr-2" />
+              This month&apos;s spending :
+            </div>
+            <h1 className="font-semibold">{thisMonthTotalExpense} ₹</h1>
+          </div>
         </div>
       </div>
     </div>
