@@ -54,7 +54,7 @@ export default function LandingPage() {
         </ol>
       </div>
       <Button 
-        className="mt-4"
+        className="mt-3 sm:mt-4"
         size="lg"
       >
         <Link href="/sign-up">
