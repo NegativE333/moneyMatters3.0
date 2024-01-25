@@ -2,21 +2,29 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
-import { Users } from "lucide-react";
+import { ChevronLeft, ChevronRight, Users } from "lucide-react";
 import { redirect } from "next/navigation";
 import { Welcome } from "../welcome/welcom";
 import { ExpenseCard } from "./expense-card";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
-export const ExpenseList = async () => {
+export const ExpenseList = async ({
+  searchParams = {}
+} : {searchParams : {[key: string]: string | string[] | undefined}}) => {
   const { orgId, userId, orgSlug } = auth();
 
   if (!orgId || !userId || !orgSlug) {
     return redirect("/select-org");
   }
 
-  const PAGE_SIZE = 30;
+  const page = typeof searchParams.page === 'string' ? Number(searchParams.page) : 1;
+  const limit = typeof searchParams.limit === 'string' ? Number(searchParams.limit) : 30;
 
+  const skip = (page-1)*limit;
+  
   const expenses = await db.expense.findMany({
     where: {
       orgId,
@@ -24,8 +32,8 @@ export const ExpenseList = async () => {
     orderBy: {
       createdAt: "desc",
     },
-    take: PAGE_SIZE, // Limit the number of expenses
-    skip: 0, 
+    take: limit, // Limit the number of expenses
+    skip: skip,
   });
 
   const groupID = await db.group.findFirst({
@@ -51,7 +59,7 @@ export const ExpenseList = async () => {
         <Users className="h-6 w-6 mr-2" />
         Group Expenses
       </div>
-      <ScrollArea className="h-[480px] sm:h-[430px] w-full rounded-md">
+      <ScrollArea className="h-[500px] sm:h-[470px] w-full rounded-md">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 w-full">
           {expenses.map((exp) => (
             <ExpenseCard 
@@ -63,6 +71,24 @@ export const ExpenseList = async () => {
               createdAt={exp.createdAt}
             />
           ))}
+        </div>
+        <div className="flex justify-between mt-4 sm:mb-4 mr-4">
+          <Button asChild variant="outline" className={cn("mr-auto", page === 1 && "hidden")}>
+                <Link
+                  href={`/group/${orgId}?page=${page-1}`}
+                >
+                  <ChevronLeft className="h-4 w-4"/>
+                  Previous
+                </Link>
+            </Button>
+          <Button asChild variant="outline" className={cn("ml-auto", expenses.length < limit && 'hidden')}>
+              <Link
+                href={`/group/${orgId}?page=${page+1}`}
+              >
+                Next
+                <ChevronRight className="h-4 w-4"/>
+              </Link>
+          </Button>
         </div>
       </ScrollArea>
 
