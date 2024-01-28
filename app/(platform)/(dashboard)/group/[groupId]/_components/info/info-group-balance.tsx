@@ -18,8 +18,6 @@ export const InfoGroupBalance = () => {
         queryFn: () => fetcher(`/api/balance/${organization?.id}`)
     });
 
-    console.log(expenseData?.totalAmount);
-
     if(!expenseData){
         return(
             <div className="ml-auto">

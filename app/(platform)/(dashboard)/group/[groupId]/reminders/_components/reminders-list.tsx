@@ -27,6 +27,11 @@ export const RemindersList = async () => {
                 <BellRing className="h-6 w-6 mr-2" />
                 Reminders
             </div>
+            {reminders.length === 0 && (
+                <div className="text-center mt-8 text-muted-foreground">
+                    No reminder added
+                </div>
+            )}
             <ScrollArea className="h-[480px] sm:h-[430px] w-full rounded-md">
                 <div className="flex flex-col gap-4 mt-4">
                     {reminders.map((reminder) => (

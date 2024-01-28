@@ -1,64 +1,96 @@
-import { BadgeIndianRupee, Car, Cigarette, Coffee, Fuel, Home, IceCream2, PartyPopper, Pill, Utensils } from "lucide-react"
+import { BadgeIndianRupee, Car, Cigarette, Coffee, Fuel, Home, IceCream2, PartyPopper, Pill, Popcorn, School, Scissors, Utensils } from "lucide-react"
 import { cn } from "./utils";
 
-export const generateIcon = (expenseType : string, className: string) => {
-    switch(expenseType){
-        case "chai":
-            return <Coffee className={cn(className)}/>;
-        case "tea":
-            return <Coffee className={cn(className)}/>;
-        case "coffee":
-            return <Coffee className={cn(className)}/>;
-        case "fuel":
-            return <Fuel className={cn(className)}/>;
-        case "petrol":
-            return <Fuel className={cn(className)}/>;
-        case "food":
-            return <Utensils className={cn(className)}/>;
-        case "j1":
-            return <Utensils className={cn(className)}/>;
-        case "biryani":
-            return <Utensils className={cn(className)}/>;
-        case "nasta":
-            return <Utensils className={cn(className)}/>;
-        case "pulao":
-            return <Utensils className={cn(className)}/>;
-        case "pohe":
-            return <Utensils className={cn(className)}/>;
-        case "vadapav":
-            return <Utensils className={cn(className)}/>;
-        case "maggie":
-            return <Utensils className={cn(className)}/>;
-        case "dine":
-            return <Utensils className={cn(className)}/>;
-        case "dinner":
-            return <Utensils className={cn(className)}/>;
-        case "lunch":
-            return <Utensils className={cn(className)}/>;
-        case "breakfast":
-            return <Utensils className={cn(className)}/>;
-        case "ice-cream":
-            return <IceCream2 className={cn(className)}/>;
-        case "ice":
-            return <IceCream2 className={cn(className)}/>;
-        case "cream":
-            return <IceCream2 className={cn(className)}/>;
-        case "icecream":
-            return <IceCream2 className={cn(className)}/>;
-        case "cigarette":
-            return <Cigarette className={cn(className)}/>;
-        case "car":
-            return <Car className={cn(className)}/>;
-        case "auto":
-            return <Car className={cn(className)}/>;
-        case "medicine":
-            return <Pill className={cn(className)}/>;
-        case "rent":
-            return <Home className={cn(className)}/>;
-        case "welcomeexpenseunique":
-            return <PartyPopper className={cn(className)}/>;
-        default:
-            return <BadgeIndianRupee className={cn(className)}/>;
-        
+export const generateIcon = (expenseType : string, className : string) => {
+    if(
+        expenseType === "chai" || 
+        expenseType === "tea" || 
+        expenseType === "coffee"
+    ){
+        return <Coffee className={cn(className)} />;
+    } 
+    else if(
+        expenseType === "fuel" || 
+        expenseType === "petrol"
+    ){
+        return <Fuel className={cn(className)} />;
+    } 
+    else if(
+        expenseType === "food" || 
+        expenseType === "j1" || 
+        expenseType === "biryani" || 
+        expenseType === "nasta" || 
+        expenseType === "pulao" || 
+        expenseType === "pohe" || 
+        expenseType === "vadapav" || 
+        expenseType === "maggie" || 
+        expenseType === "dine" || 
+        expenseType === "dinner" || 
+        expenseType === "lunch" || 
+        expenseType === "breakfast"||
+        expenseType === "brunch"
+    ){
+        return <Utensils className={cn(className)} />;
+    } 
+    else if(
+        expenseType === "ice-cream" || 
+        expenseType === "ice" || 
+        expenseType === "cream" || 
+        expenseType === "icecream"||
+        expenseType === "ice cream"
+    ){
+        return <IceCream2 className={cn(className)} />;
+    } 
+    else if(
+        expenseType === "cigarette"
+    ){
+        return <Cigarette className={cn(className)} />;
+    } 
+    else if(
+        expenseType === "car" || 
+        expenseType === "auto"
+    ){
+        return <Car className={cn(className)} />;
+    } 
+    else if(
+        expenseType === "medicine"
+    ){
+        return <Pill className={cn(className)} />;
+    } 
+    else if(
+        expenseType === "rent"
+    ){
+        return <Home className={cn(className)} />;
+    } 
+    else if(
+        expenseType === "cutting" ||
+        expenseType === "hair cut" ||
+        expenseType === "saloon"
+    ){
+        return <Scissors className={cn(className)}/>
     }
-}
+    else if(
+        expenseType === 'movie' ||
+        expenseType === 'cinema' ||
+        expenseType === 'theater'
+    ){
+        return <Popcorn className={cn(className)}/>
+    }
+    else if(
+        expenseType === 'book' ||
+        expenseType === 'books' ||
+        expenseType === 'pen' ||
+        expenseType === 'pencil' ||
+        expenseType === 'notebook'
+    ){
+        return <School className={cn(className)}/>
+    }
+    else if(
+        expenseType === "welcomeexpenseunique"
+    ){
+        return <PartyPopper className={cn(className)} />;
+    } 
+    else{
+        return <BadgeIndianRupee className={cn(className)} />;
+    }
+};

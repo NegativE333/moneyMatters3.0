@@ -21,7 +21,6 @@ export const Option = () => {
             </div>
         )
     }
-    console.log(organization?.id);
 
     if(lastPart === organization.id){
         return <InfoAddExpense />;

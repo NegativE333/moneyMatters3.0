@@ -16,7 +16,6 @@ const BalancesPage = async () => {
   const endDay = endOfDay(today);
   const Month = format(today, 'MMMM');
   const todayDate = format(today, 'd MMM');
-  console.log(todayDate);
 
   if (!orgId || !userId) {
     return null;
@@ -63,7 +62,7 @@ const BalancesPage = async () => {
       <Info />
       <Separator className="my-4" />
 
-      <div className="flex flex-col sm:flex-row gap-8">
+      <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-1">
           <BalanceList />
         </div>
