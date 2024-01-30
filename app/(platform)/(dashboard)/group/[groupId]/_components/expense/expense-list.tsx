@@ -59,8 +59,8 @@ export const ExpenseList = async ({
         <Users className="h-6 w-6 mr-2" />
         Group Expenses
       </div>
-      <ScrollArea className="h-[71vh] sm:h-[65vh] w-full rounded-md">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-3 sm:gap-4 w-full">
+      <ScrollArea className="h-[67vh] sm:h-[65vh] w-full rounded-md">
+        <div className="flex flex-wrap justify-start items-start gap-3 w-full pr-3">
           {expenses.map((exp) => (
             <ExpenseCard 
               key={exp.id}
@@ -72,7 +72,7 @@ export const ExpenseList = async ({
             />
           ))}
         </div>
-        <div className="flex justify-between mt-4 sm:mb-4 sm:mr-4">
+        <div className="flex justify-between mt-4 sm:mb-4 mr-4">
           <Button asChild variant="outline" className={cn("mr-auto", page === 1 && "hidden")}>
                 <Link
                   href={`/group/${orgId}?page=${page-1}`}

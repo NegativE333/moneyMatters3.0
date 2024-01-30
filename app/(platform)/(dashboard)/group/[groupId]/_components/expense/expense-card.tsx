@@ -33,10 +33,10 @@ export const ExpenseCard = ({
       <div
         role="button"
         onClick={handleClick}
-        className="border border-neutral-700/90 rounded-md w-full sm:w-[240px] h-16 flex"
+        className="border border-neutral-700/90 rounded-md w-full md:w-[48%] lg:w-[32%] h-16 flex"
       >
-          <div className="bg-neutral-700 h-full w-[25%] flex justify-center items-center rounded-s-md text-white">
-            {generateIcon(title.toLowerCase(), "h-10 w-10")}
+          <div className="bg-neutral-700 h-full w-[23%] flex justify-center items-center rounded-s-md text-white">
+            {generateIcon(title.toLowerCase(), "h-8 w-8")}
           </div>
           <div className="flex flex-col w-[75%]">
             {title === "welcomeExpenseUnique" ? (
