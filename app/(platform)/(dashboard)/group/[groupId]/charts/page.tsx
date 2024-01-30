@@ -1,7 +1,6 @@
 import { auth } from "@clerk/nextjs";
 import { subDays, startOfDay, format } from "date-fns";
 import { Info } from "../_components/info/info";
-import { Separator } from "@/components/ui/separator";
 import { LineChart } from "./_components/line-chart";
 import { db } from "@/lib/db";
 import { BarChart } from "./_components/bar-chart";
@@ -73,7 +72,6 @@ const ChartsPage = async () => {
   return (
     <div className="w-full">
       <Info />
-      <Separator className="my-4" />
       <div className="flex flex-col sm:flex-row gap-8">
         <div className="flex-1">
           <LineChart

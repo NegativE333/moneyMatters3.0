@@ -59,8 +59,8 @@ export const ExpenseList = async ({
         <Users className="h-6 w-6 mr-2" />
         Group Expenses
       </div>
-      <ScrollArea className="h-[500px] sm:h-[470px] w-full rounded-md">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 w-full">
+      <ScrollArea className="h-[71vh] sm:h-[65vh] w-full rounded-md">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-3 sm:gap-4 w-full">
           {expenses.map((exp) => (
             <ExpenseCard 
               key={exp.id}

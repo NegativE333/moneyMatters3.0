@@ -1,4 +1,4 @@
-import { Loader } from "lucide-react";
+import { BadgeIndianRupee, Loader } from "lucide-react";
 import { Info } from "../_components/info/info";
 
 const ChartsLoading = () => {
@@ -6,7 +6,7 @@ const ChartsLoading = () => {
         <div className="w-full">
             <Info />
             <div className="h-[50vh] flex items-center justify-center">
-                <Loader className="animate-spin "/>
+                <BadgeIndianRupee className="animate-ping h-12 w-12"/>
             </div>
         </div>
     );
