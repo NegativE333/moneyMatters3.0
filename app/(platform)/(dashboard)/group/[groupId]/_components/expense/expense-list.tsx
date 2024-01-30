@@ -72,7 +72,7 @@ export const ExpenseList = async ({
             />
           ))}
         </div>
-        <div className="flex justify-between mt-4 sm:mb-4 mr-4">
+        <div className="flex justify-between mt-4 pb-2 sm:mb-4 mr-4">
           <Button asChild variant="outline" className={cn("mr-auto", page === 1 && "hidden")}>
                 <Link
                   href={`/group/${orgId}?page=${page-1}`}
