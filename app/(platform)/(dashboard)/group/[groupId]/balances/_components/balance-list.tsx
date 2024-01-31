@@ -40,7 +40,7 @@ export const BalanceList = async () => {
                 {balances.map((balance) =>( 
                     <div key={balance.id}>
                         {balance.users.map((user) => (
-                            <div key={user.userId} className="flex gap-2 min-w-[300px] max-w-[320px] items-center border border-black/30 rounded-sm">
+                            <div key={user.userId} className="flex gap-2 w-full md:min-w-[300px] md:max-w-[320px] items-center border border-black/30 rounded-sm">
                                 <Image 
                                     src={user.imageUrl ?? "/"}
                                     alt="img"
