@@ -21,13 +21,18 @@ export const BalanceFetcher = async () => {
         where:{
             group: orgId
         }
-    })
-
-    const userCount = await db.user.count({
-        where:{
-            groupId: group?.id
-        }
     });
+
+    let userCount;
+
+    if(group){
+        userCount = await db.user.count({
+            where:{
+                groupId: group?.id
+            }
+        });
+    }
+
 
     let Icon;
 
@@ -52,7 +57,7 @@ export const BalanceFetcher = async () => {
             <Separator orientation="vertical" className="mx-3 h-4 bg-black"/>
             <Users className="h-3 w-3 mr-1 text-black/90"/>
             <span className="font-medium text-black/90">
-                {userCount}
+                {userCount ? userCount : '0'} 
             </span>
         </div>
     )

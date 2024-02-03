@@ -1,4 +1,3 @@
-import { Separator } from "@/components/ui/separator";
 import { Info } from "./_components/info/info";
 import { ExpenseList } from "./_components/expense/expense-list";
 import { Suspense } from "react";

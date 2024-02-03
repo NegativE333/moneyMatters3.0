@@ -67,8 +67,6 @@ export const FormPopover = ({
             if (response.ok) {
               const data = await response.json();
               setGroupMembers(data);
-            } else {
-              console.error('Failed to fetch group members');
             }
           } catch (error) {
             console.error('Error fetching group members:', error);

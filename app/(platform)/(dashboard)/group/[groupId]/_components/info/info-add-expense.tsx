@@ -2,9 +2,26 @@
 
 import { FormPopover } from "@/components/form/form-popover"
 import { Plus } from "lucide-react"
+import { useEffect, useState } from "react";
 
 
 export const InfoAddExpense = () => {
+
+    const [hide, setHide] = useState(true);
+
+    useEffect(() => {
+        const res = async () => {
+            const response = await fetch('/api/members');
+            if(response.ok){
+                setHide(false);
+            }
+        }
+        res();
+    });
+
+    if(hide){
+        return null;
+    }
 
     return(
         <FormPopover side="bottom" sideOffset={10}>

@@ -26,6 +26,7 @@ export async function GET(req: Request) {
             groupId: group.id
         }
     });
+    
     return NextResponse.json(members);
   } catch (error) {
     console.error(error);

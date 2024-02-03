@@ -28,16 +28,22 @@ export const ActivityList = async () => {
         <GanttChart className="h-6 w-6 mr-2" />
         Recent Actions
       </div>
-      <ScrollArea className="h-[490px] sm:h-[430px] w-full rounded-md">
-        <ol className="space-y-4 mt-4">
-          <p className="hidden last:block text-xs text-center text-muted-foreground">
-            No activity found inside this group
-          </p>
-          {auditLogs.map((log) => (
-            <ActivityItem key={log.id} data={log} />
-          ))}
-        </ol>
-      </ScrollArea>
+      {auditLogs.length === 0 ? (
+        <div className="text-center mt-8 text-muted-foreground">
+          No recent actions found
+        </div>
+      ) : (
+        <ScrollArea className="h-[490px] sm:h-[430px] w-full rounded-md">
+          <ol className="space-y-4 mt-4">
+            <p className="hidden last:block text-xs text-center text-muted-foreground">
+              No activity found inside this group
+            </p>
+            {auditLogs.map((log) => (
+              <ActivityItem key={log.id} data={log} />
+            ))}
+          </ol>
+        </ScrollArea>
+      )}
     </div>
   );
 };
