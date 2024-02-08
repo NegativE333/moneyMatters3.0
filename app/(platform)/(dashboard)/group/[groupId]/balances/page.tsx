@@ -3,8 +3,16 @@ import { Info } from "../_components/info/info";
 import { BalanceList } from "./_components/balance-list";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
-import { startOfMonth, endOfMonth, startOfDay, endOfDay, format, subMonths } from "date-fns";
-import { PercentDiamond } from "lucide-react";
+import {
+  startOfMonth,
+  endOfMonth,
+  startOfDay,
+  endOfDay,
+  format,
+  subMonths,
+  getDaysInMonth,
+} from "date-fns";
+import { PercentCircle, PercentDiamond } from "lucide-react";
 
 const BalancesPage = async () => {
   const { orgId, userId } = auth();
@@ -14,6 +22,8 @@ const BalancesPage = async () => {
   const endDate = endOfMonth(today);
   const prevMonthStart = startOfMonth(subMonths(today, 1));
   const prevMonthEnd = endOfMonth(subMonths(today, 1));
+  const daysInThisMonth = getDaysInMonth(today);
+  const daysInPrevMonth = getDaysInMonth(subMonths(today, 1));
   const startDay = startOfDay(today);
   const endDay = endOfDay(today);
 
@@ -24,15 +34,15 @@ const BalancesPage = async () => {
   const lastMonthExpenses = await db.expenseUser.findMany({
     where: {
       userId: userId,
-      createdAt:{
-        gte:  prevMonthStart,
-        lte: prevMonthEnd
+      createdAt: {
+        gte: prevMonthStart,
+        lte: prevMonthEnd,
       },
     },
-    select:{
-      amount: true
-    }
-  })
+    select: {
+      amount: true,
+    },
+  });
 
   const monthTotalExpense = await db.expenseUser.findMany({
     where: {
@@ -48,16 +58,16 @@ const BalancesPage = async () => {
   });
 
   const todayTotalExpense = await db.expenseUser.findMany({
-    where:{
+    where: {
       userId: userId,
       createdAt: {
         gte: startDay,
-        lte: endDay
+        lte: endDay,
       },
     },
-    select:{
-      amount : true
-    }
+    select: {
+      amount: true,
+    },
   });
 
   const thisMonthTotalExpense = monthTotalExpense.reduce(
@@ -83,10 +93,10 @@ const BalancesPage = async () => {
           <BalanceList />
         </div>
         <div className="flex-1">
-          <div className="flex flex-col gap-4 px-2 md:px-4 text-md sm:text-lg">
+          <div className="flex flex-col gap-4 px-2 md:px-4 text-sm sm:text-md">
             <div className="flex gap-2">
               <div className="flex items-center font-semibold text-neutral-700">
-                <PercentDiamond className="h-6 w-6 mr-2" />
+              <PercentCircle className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                 Today&apos;s total expense :
               </div>
               <div className="ml-auto">
@@ -98,11 +108,23 @@ const BalancesPage = async () => {
                 <Separator />
                 <div className="flex gap-2">
                   <div className="flex items-center font-semibold text-neutral-700">
-                    <PercentDiamond className="h-6 w-6 mr-2" />
+                  <PercentCircle className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                     This Month total expense :
                   </div>
                   <div className="ml-auto">
                     <h1 className="font-semibold">{thisMonthTotalExpense} ₹</h1>
+                  </div>
+                </div>
+                <Separator />
+                <div className="flex gap-2">
+                  <div className="flex items-center font-semibold text-neutral-700">
+                    <PercentCircle className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                    This Month average expense :
+                  </div>
+                  <div className="ml-auto">
+                    <h1 className="font-semibold">
+                      {(thisMonthTotalExpense / daysInThisMonth).toFixed(2)} ₹
+                    </h1>
                   </div>
                 </div>
               </>
@@ -112,11 +134,21 @@ const BalancesPage = async () => {
                 <Separator />
                 <div className="flex gap-2">
                   <div className="flex items-center font-semibold text-neutral-700">
-                    <PercentDiamond className="h-6 w-6 mr-2" />
+                  <PercentCircle className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                     Last Month total expense :
                   </div>
                   <div className="ml-auto">
                     <h1 className="font-semibold">{lastMonthTotalExpense} ₹</h1>
+                  </div>
+                </div>
+                <Separator />
+                <div className="flex gap-2">
+                  <div className="flex items-center font-semibold text-neutral-700">
+                  <PercentCircle className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                    Last Month average expense :
+                  </div>
+                  <div className="ml-auto">
+                    <h1 className="font-semibold">{(lastMonthTotalExpense/daysInPrevMonth).toFixed(2)} ₹</h1>
                   </div>
                 </div>
               </>

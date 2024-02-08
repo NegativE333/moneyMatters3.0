@@ -1,14 +1,18 @@
 import { Logo } from "@/components/logo"
 import { Button } from "@/components/ui/button"
+import { getYear } from "date-fns";
 import Link from "next/link"
 
 export const Footer = () => {
+    const date = new Date();
+    const year = getYear(date);
+
     return(
         <div className="fixed bottom-0 w-full p-2 sm:p-4 border-t bg-slate-100 ">
             <div className="md:max-w-screen-xl mx-auto flex items-center w-full justify-center sm:justify-between">
                 <Logo />
                 <div className="hidden sm:flex">
-                    © 2023 Money Matters
+                    © {year} Money Matters
                 </div>
                 <div className="space-x-4 md:block md:w-auto flex items-center">
                     <Button size="sm" variant="ghost" asChild>
