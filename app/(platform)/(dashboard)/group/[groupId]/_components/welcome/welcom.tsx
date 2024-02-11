@@ -9,7 +9,6 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Poppins } from "next/font/google";
 import { cn } from "@/lib/utils";
-import { Loader } from "lucide-react";
 
 const font = Poppins({subsets: ['latin'], weight: ['500']});
 

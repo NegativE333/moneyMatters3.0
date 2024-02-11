@@ -7,7 +7,7 @@ import {
     PopoverClose
 } from "@/components/ui/popover";
 import { Button } from "../ui/button";
-import { XIcon } from "lucide-react";
+import { Loader, XIcon } from "lucide-react";
 import { FormInput } from "./form-input";
 import { FormSubmit } from "./form-submit";
 import { useAction } from "@/hooks/use-action";
@@ -45,6 +45,7 @@ export const FormPopover = ({
     const [userExpenses, setUserExpenses] = useState<{ id: string; amount: string }[]>([]);
     const [totalAmount, setTotalAmount] = useState<number>(0);
     const [enteredAmount, setEnteredAmount] = useState<number>(0);
+    const [isProcessing, setIsProcessing] = useState(false);
 
     const { execute, fieldErrors } = useAction(createExpense, {
         onSuccess: (data) => {
@@ -107,10 +108,12 @@ export const FormPopover = ({
     const {execute : executeUpdateAllBalances} = useAction(updateAllBalances);
 
     const onSubmit = (formData : FormData) => {
-        const title = formData.get("title") as string;
-        const amount = formData.get("amount") as string;
-        execute({ title, amount, users: userExpenses });
-        executeUpdateAllBalances({ users : userExpenses});
+      setIsProcessing(true);
+      const title = formData.get("title") as string;
+      const amount = formData.get("amount") as string;
+      execute({ title, amount, users: userExpenses });
+      executeUpdateAllBalances({ users : userExpenses});
+      setIsProcessing(false);
     }
 
     const handleEqualDistribution = () => {
@@ -223,7 +226,7 @@ export const FormPopover = ({
                           </p>
                         ) : (
                           <FormSubmit className="w-full">
-                              Create
+                            Create
                           </FormSubmit>
                         )}
                 </form>
