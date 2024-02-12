@@ -22,21 +22,19 @@ export const BarChart = ({
                 <BarChartBig className="h-6 w-6 mr-2" />
                 Balances Chart
             </div>
-            <div className="mt-4 sm:mt-1">
-                <Bar
-                    data={{
-                        labels: balanceName.map((bal) => bal),
-                        datasets: [
-                            {
-                                label: "Balances",
-                                data: balanceAmount.map((bal) => bal),
-                                backgroundColor: backgroundColors,
-                                borderRadius: 5
-                            }
-                        ]
-                    }}
-                />
-            </div>
+            <Bar
+                data={{
+                    labels: balanceName.map((bal) => bal),
+                    datasets: [
+                        {
+                            label: "Balances",
+                            data: balanceAmount.map((bal) => bal),
+                            backgroundColor: backgroundColors,
+                            borderRadius: 5
+                        }
+                    ]
+                }}
+            />
         </div>
     )
 }

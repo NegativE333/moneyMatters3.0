@@ -38,14 +38,13 @@ export const FormPopover = ({
     children,
     side = "bottom",
     align,
-    sideOffset = 0
+    sideOffset = 16
 } : FormPopoverProps) => {
     const closeRef = useRef<ElementRef<"button">>(null);
 
     const [userExpenses, setUserExpenses] = useState<{ id: string; amount: string }[]>([]);
     const [totalAmount, setTotalAmount] = useState<number>(0);
     const [enteredAmount, setEnteredAmount] = useState<number>(0);
-    const [isProcessing, setIsProcessing] = useState(false);
 
     const { execute, fieldErrors } = useAction(createExpense, {
         onSuccess: (data) => {
@@ -108,12 +107,10 @@ export const FormPopover = ({
     const {execute : executeUpdateAllBalances} = useAction(updateAllBalances);
 
     const onSubmit = (formData : FormData) => {
-      setIsProcessing(true);
       const title = formData.get("title") as string;
       const amount = formData.get("amount") as string;
       execute({ title, amount, users: userExpenses });
       executeUpdateAllBalances({ users : userExpenses});
-      setIsProcessing(false);
     }
 
     const handleEqualDistribution = () => {
@@ -147,7 +144,7 @@ export const FormPopover = ({
             </PopoverTrigger>
             <PopoverContent
                 align={align}
-                className="w-80 pt-3"
+                className="w-80 pt-3 mr-2"
                 side={side}
                 sideOffset={sideOffset}
             >
@@ -155,7 +152,7 @@ export const FormPopover = ({
                     Create Expense
                 </div>
                 <PopoverClose asChild ref={closeRef} onClick={resetForm}>
-                    <Button className="h-auto w-auto p-2 absolute top-2 right-2 text-neutral-600" variant="ghost">
+                    <Button className="h-auto w-auto p-2 mr-2 absolute top-2 right-2 text-neutral-600" variant="ghost">
                         <XIcon className="h-4 w-4"/>
                     </Button>
                 </PopoverClose>
