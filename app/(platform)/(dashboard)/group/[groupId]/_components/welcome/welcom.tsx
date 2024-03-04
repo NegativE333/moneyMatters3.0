@@ -35,7 +35,7 @@ export const Welcome = ({
         execute({ title:'welcomeExpenseUnique', amount:'0', users:[{id: userId, amount: "0"}]});
         setTimeout(() => {
             window.location.reload();
-        }, 3000);
+        }, 5000);
     }
 
     return(
