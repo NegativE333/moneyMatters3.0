@@ -1,9 +1,7 @@
 "use client";
 
-import { FormPopover } from "@/components/form/form-popover"
 import { ReminderFormPopover } from "@/components/form/reminder-form-popover";
 import { Plus } from "lucide-react"
-
 
 export const InfoAddReminder = () => {
 

@@ -9,6 +9,12 @@ body,
 }
  
 @layer base {
+  /*Added to remove the increment decrement arrow from number input field*/
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;

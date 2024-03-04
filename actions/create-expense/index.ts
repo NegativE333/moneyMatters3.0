@@ -48,8 +48,6 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       });
   
       if (!groupExists) {
-        // Create the group if it doesn't exist
-        console.log("creating new grop")
             await db.group.create({
               data: {
                 group: orgId,
@@ -82,8 +80,6 @@ const handler = async (data: InputType): Promise<ReturnType> => {
                 groupId: groupID.id
               },
             });
-    
-            console.log({userInGroup});
       
             if (!userInGroup) {
               // Add the user to the group if not already part of it
@@ -136,7 +132,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         createExpUser = await db.$transaction(transaction);
       }
       catch(error){
-        console.log(error);
+        return {
+          error: "Failed to create expense."
+        }
       }
 
     } catch (error) {

@@ -45,7 +45,6 @@ export const ReminderFormPopover = ({
     const onSubmit = (formData : FormData) => {
         const title = formData.get("title") as string;
         const desc = formData.get("desc") as string;
-        console.log(title, desc);
 
         execute({ title, desc });
     }
@@ -57,7 +56,7 @@ export const ReminderFormPopover = ({
             </PopoverTrigger>
             <PopoverContent
                 align={align}
-                className="w-80 pt-3"
+                className="w-80 pt-3 mr-4 mt-1 sm:mt-0"
                 side={side}
                 sideOffset={sideOffset}
             >
@@ -65,7 +64,7 @@ export const ReminderFormPopover = ({
                     Create Reminder
                 </div>
                 <PopoverClose asChild ref={closeRef} onClick={resetForm}>
-                    <Button className="h-auto w-auto p-2 absolute top-2 right-2 text-neutral-600" variant="ghost">
+                    <Button className="h-auto w-auto p-2 absolute top-2 right-2 text-neutral-600 mr-4 mt-0.5 sm:mt-0" variant="ghost">
                         <XIcon className="h-4 w-4"/>
                     </Button>
                 </PopoverClose>

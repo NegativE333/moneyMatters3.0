@@ -40,7 +40,7 @@ export const Option = () => {
 
     return(
         <div>
-            Something
+            
         </div>
     )
 }

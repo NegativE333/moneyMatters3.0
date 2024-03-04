@@ -35,8 +35,7 @@ export async function GET(req : Request) {
                 id: user.balanceId
             }
         });
-        console.log("Groupid : ", groupID.id);
-        console.log("User balance id : ", user.balanceId);
+        
         return NextResponse.json(balance);
     }
     catch(error){

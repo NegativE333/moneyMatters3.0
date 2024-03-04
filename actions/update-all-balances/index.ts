@@ -106,7 +106,6 @@ const handler = async (data : InputType) : Promise<ReturnType> => {
         }
     }
     catch(error){
-        console.log("Failed..........");
         return{
             error: "Failed to create expense."
         }

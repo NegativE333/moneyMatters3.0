@@ -16,8 +16,6 @@ export const FormPicker = async () => {
         }
     });
 
-    console.log(members);
-
     return(
         <div className="h-full">
             Members

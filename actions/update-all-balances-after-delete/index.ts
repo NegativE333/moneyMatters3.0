@@ -69,8 +69,6 @@ const handler = async (data : InputType) : Promise<ReturnType> => {
                     }
                 });
 
-                console.log(balanceId);
-
                 if(individualBalance){
                     const updatedBalanceAmount = parseFloat(individualBalance.balance) + parseFloat(users.find((user) => user.id === individualBalance.userId)?.amount || '0');
 
@@ -108,7 +106,6 @@ const handler = async (data : InputType) : Promise<ReturnType> => {
         }
     }
     catch(error){
-        console.log("Failed..........");
         return{
             error: "Failed to create expense."
         }

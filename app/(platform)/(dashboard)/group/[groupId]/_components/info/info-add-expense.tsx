@@ -27,7 +27,7 @@ export const InfoAddExpense = () => {
         <FormPopover side="bottom" sideOffset={10}>
             <div 
                 role="button"
-                className="ml-auto flex items-center justify-center gap-2 p-2 border border-black/50 hover:border-black rounded-md"
+                className="ml-auto flex items-center justify-center gap-2 p-2 border border-black/50 hover:border-black rounded-md mr-1"
             >
                 <Plus className="h-4 w-4"/>
                 <p className="hidden sm:block text-sm">
