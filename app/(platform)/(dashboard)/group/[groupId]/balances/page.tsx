@@ -34,6 +34,7 @@ const BalancesPage = async () => {
   const lastMonthExpenses = await db.expenseUser.findMany({
     where: {
       userId: userId,
+      groupId: orgId,
       createdAt: {
         gte: prevMonthStart,
         lte: prevMonthEnd,
@@ -47,6 +48,7 @@ const BalancesPage = async () => {
   const monthTotalExpense = await db.expenseUser.findMany({
     where: {
       userId: userId,
+      groupId: orgId,
       createdAt: {
         gte: startDate,
         lte: endDate,
@@ -60,6 +62,7 @@ const BalancesPage = async () => {
   const todayTotalExpense = await db.expenseUser.findMany({
     where: {
       userId: userId,
+      groupId: orgId,
       createdAt: {
         gte: startDay,
         lte: endDay,
@@ -100,7 +103,9 @@ const BalancesPage = async () => {
                 Today&apos;s total expense :
               </div>
               <div className="ml-auto">
-                <h1 className="font-semibold">{todayTotal} ₹</h1>
+                <h1 className="font-semibold">
+                  {todayTotal.toFixed(2)} ₹
+                </h1>
               </div>
             </div>
             {thisMonthTotalExpense > 0 && (
@@ -112,7 +117,9 @@ const BalancesPage = async () => {
                     This Month total expense :
                   </div>
                   <div className="ml-auto">
-                    <h1 className="font-semibold">{thisMonthTotalExpense} ₹</h1>
+                    <h1 className="font-semibold">
+                      {thisMonthTotalExpense.toFixed(2)} ₹
+                    </h1>
                   </div>
                 </div>
                 <Separator />
@@ -138,7 +145,9 @@ const BalancesPage = async () => {
                     Last Month total expense :
                   </div>
                   <div className="ml-auto">
-                    <h1 className="font-semibold">{lastMonthTotalExpense} ₹</h1>
+                    <h1 className="font-semibold">
+                      {lastMonthTotalExpense.toFixed(2)} ₹
+                    </h1>
                   </div>
                 </div>
                 <Separator />

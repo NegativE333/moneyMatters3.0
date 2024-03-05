@@ -60,6 +60,7 @@ model ExpenseUser {
   expenseId String
   userId String
   amount String
+  groupId   String?
 
   createdAt DateTime @default(now())
 }

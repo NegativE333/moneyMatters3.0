@@ -124,6 +124,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
             data:{
               expenseId: exp.id,
               userId: user.id,
+              groupId: orgId,
               amount: user.amount
             }
           })
