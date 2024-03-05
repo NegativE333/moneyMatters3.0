@@ -10,6 +10,8 @@ interface ExpenseCardProps{
   id: string;
   title : string;
   addedBy : string;
+  userId: string;
+  expUserId: string;
   amount : string;
   createdAt: Date;
 }
@@ -21,6 +23,8 @@ export const ExpenseCard = ({
   id,
   title,
   addedBy,
+  userId,
+  expUserId,
   amount,
   createdAt
 } : ExpenseCardProps) => {
@@ -49,14 +53,29 @@ export const ExpenseCard = ({
               </div>
             ) : (
               <div className="flex mt-1 ml-2 mr-1 h-[50%]">
-                <h1 className={cn("text-[17px] w-[70%] truncate", font.className)}>{title}</h1>
-                <h2 className="ml-auto truncate">{amount} ₹</h2>
+                <h1 
+                  className={
+                    cn("text-[17px] w-[70%] truncate", 
+                    font.className)}
+                >
+                  {title}
+                </h1>
+                <h2 
+                  className={cn("ml-auto truncate")}
+                >
+                  {amount} ₹
+                </h2>
               </div>
             )}
             <div className="flex text-[10px] ml-2">
               {title !== "welcomeExpenseUnique" && (
                 <p className={cn("truncate mt-2 w-[60%]", subFont.className)}>
-                  Added by <span className="font-semibold">{addedBy}</span> 
+                  Added by 
+                  {expUserId !== userId ? (
+                    <span className="font-semibold"> {addedBy}</span> 
+                  ) : (
+                    <span className="font-semibold"> You</span>
+                  )}
                 </p>
               )}
               <p className="ml-auto text-[10px] p-[3px] border rounded-xl font-semibold text-muted-foreground mb-1">

@@ -21,17 +21,17 @@ const Error = () => {
     }
 
     return (  
-        <div className={cn("h-full flex flex-col gap-4 items-center justify-center text-rose-500 px-2 md:px-60 text-center", font.className)}>
+        <div className={cn("h-full flex flex-col gap-4 items-center justify-center text-rose-600 px-2 md:px-60 text-center", font.className)}>
             <AlertCircle className="h-8 w-8"/>
             <h1 className="text-2xl font-semibold">
                 Something went wrong!
             </h1>
             <p>
-            Oops! Our piggy bank seems to have taken a break. We&apos;re on it, but in the meantime, why not head back to the home page and revisit your financial adventure?
+            Please return to the main page to get back on track.
             </p>
             <Button 
                 variant="outline" 
-                className="text-black"
+                className="text-black border-black"
                 onClick={() => onClick()}
             >
                 Go back to main page

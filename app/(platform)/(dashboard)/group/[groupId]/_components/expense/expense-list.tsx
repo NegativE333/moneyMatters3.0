@@ -67,6 +67,8 @@ export const ExpenseList = async ({
               id={exp.id}
               title={exp.title}
               addedBy={exp.addedBy}
+              userId={userId}
+              expUserId={exp.userId}
               amount={exp.amount}
               createdAt={exp.createdAt}
             />
