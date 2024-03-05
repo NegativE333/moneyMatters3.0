@@ -8,7 +8,7 @@ const OrganizationIdPage = async ({
   searchParams : {[key: string]: string | string[] | undefined}
 }) => {
   return (
-    <div className="w-full mb-20">
+    <div className="w-full ">
       <Info />
       <div className="px-2 md:px-4">
         <Suspense fallback={<ExpenseList.Skeleton />}>

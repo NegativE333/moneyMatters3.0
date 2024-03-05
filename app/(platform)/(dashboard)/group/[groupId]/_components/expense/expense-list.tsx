@@ -14,9 +14,9 @@ import { cn } from "@/lib/utils";
 export const ExpenseList = async ({
   searchParams = {}
 } : {searchParams : {[key: string]: string | string[] | undefined}}) => {
-  const { orgId, userId, orgSlug } = auth();
+  const { orgId, userId } = auth();
 
-  if (!orgId || !userId || !orgSlug) {
+  if (!orgId || !userId) {
     return redirect("/select-org");
   }
 
@@ -50,7 +50,7 @@ export const ExpenseList = async ({
   });
 
   if (!newUser || !groupID) {
-    return <Welcome groupName={orgSlug} userId={userId} />;
+    return <Welcome userId={userId} />;
   }
 
   return ( 

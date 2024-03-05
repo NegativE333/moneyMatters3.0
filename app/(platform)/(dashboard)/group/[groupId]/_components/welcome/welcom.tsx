@@ -3,7 +3,6 @@
 import { createExpense } from "@/actions/create-expense";
 import { Button } from "@/components/ui/button"
 import { useAction } from "@/hooks/use-action";
-import { useOrganization } from "@clerk/nextjs";
 import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -13,12 +12,10 @@ import { cn } from "@/lib/utils";
 const font = Poppins({subsets: ['latin'], weight: ['500']});
 
 interface WelcomeProps{
-    groupName : string;
     userId: string
 }
 
 export const Welcome = ({
-    groupName,
     userId
 } : WelcomeProps) => {
     
