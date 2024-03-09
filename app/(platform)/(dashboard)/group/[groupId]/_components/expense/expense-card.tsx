@@ -33,7 +33,7 @@ export const ExpenseCard = ({
 
     const handleClick = () => {
       if(title !== "welcomeExpenseUnique"){
-        cardModal.onOpen(id);
+        cardModal.onOpen(id, userId);
       }
     }
 

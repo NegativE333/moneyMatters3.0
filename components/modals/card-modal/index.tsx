@@ -18,6 +18,7 @@ import { updateAllBalancesAfterDelete } from "@/actions/update-all-balances-afte
 export const CardModal = () => {
 
     const id = useCardModal((state) => state.id);
+    const currUserId = useCardModal((state) => state.currUserId);
     const isOpen = useCardModal((state) => state.isOpen);
     const onClose = useCardModal((state) => state.onClose);
 
@@ -88,6 +89,7 @@ export const CardModal = () => {
             <DialogContent>
                 <Header 
                     data={expenseData}
+                    currUserId={currUserId}
                 />
                 <Separator />
                 <div className="hidden sm:flex">

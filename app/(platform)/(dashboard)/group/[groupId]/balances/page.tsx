@@ -12,7 +12,7 @@ import {
   subMonths,
   getDaysInMonth,
 } from "date-fns";
-import { PercentCircle, PercentDiamond } from "lucide-react";
+import { PercentCircle } from "lucide-react";
 
 const BalancesPage = async () => {
   const { orgId, userId } = auth();
@@ -22,7 +22,7 @@ const BalancesPage = async () => {
   const endDate = endOfMonth(today);
   const prevMonthStart = startOfMonth(subMonths(today, 1));
   const prevMonthEnd = endOfMonth(subMonths(today, 1));
-  const daysInThisMonth = getDaysInMonth(today);
+  const daysInThisMonth = parseInt(format(today, 'd'), 10);
   const daysInPrevMonth = getDaysInMonth(subMonths(today, 1));
   const startDay = startOfDay(today);
   const endDay = endOfDay(today);
